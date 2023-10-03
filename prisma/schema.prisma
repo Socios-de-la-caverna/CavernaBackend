@@ -16,7 +16,7 @@ model usuarios {
   nombre_visual String   @db.VarChar(30)
   nombre_global String   @db.VarChar(30)
   avatar        String   @db.VarChar(255)
-  descripcion   String   @db.VarChar(255)
+  descripcion   String?  @db.VarChar(255)
   importancia   Int      @default(0)
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
