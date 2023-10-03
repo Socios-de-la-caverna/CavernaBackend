@@ -25,6 +25,7 @@ export default class Usuarios {
 
   async actualizarUsuario(body: Usuario, id: string) {
     const usuarioID = await this.obtenerUsuario(id);
+    if (!usuarioID) throw new Error("El usuario no existe");
     const usuario = await prisma.usuarios.update({
       where: { id: usuarioID.id },
       data: { ...body, importancia: usuarioID.importancia + 1 },
