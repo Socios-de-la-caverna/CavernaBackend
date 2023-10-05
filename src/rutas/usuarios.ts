@@ -6,6 +6,7 @@ const prisma = new PrismaClient();
 export default class Usuarios {
   async obtenerUsuarios() {
     const usuarios = await prisma.usuarios.findMany({ take: 10 });
+    usuarios.sort((a, b) => b.importancia - a.importancia);
     return usuarios;
   }
 
@@ -17,7 +18,7 @@ export default class Usuarios {
   }
 
   async crearUsuario(body: Usuario) {
-    if (this.obtenerUsuario(body.discord_id))
+    if (!this.obtenerUsuario(body.discord_id))
       throw new Error("El usuario ya existe");
     const usuario = await prisma.usuarios.create({ data: body });
     return usuario;
